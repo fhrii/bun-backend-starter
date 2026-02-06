@@ -1,0 +1,25 @@
+{
+  "name": "bun-backend-starter",
+  "module": "src/main.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "clean": "rimraf ./dist",
+    "dev": "NODE_ENV=development bun --env-file=.env.local --env-file=.env.development --watch src/main.ts",
+    "start": "NODE_ENV=production bun --env-file.env.production src/main.ts",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "rimraf": "^6.1.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.39.2",
+    "eslint-config-sheriff": "^31.1.0",
+    "jiti": "^2.6.1",
+    "prettier": "^3.8.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
