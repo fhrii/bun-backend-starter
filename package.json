@@ -3,11 +3,13 @@
   "module": "src/main.ts",
   "type": "module",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf ./dist",
     "dev": "NODE_ENV=development bun --env-file=.env.local --env-file=.env.development --watch src/main.ts",
-    "start": "NODE_ENV=production bun --env-file.env.production src/main.ts",
-    "lint": "eslint . --fix"
+    "start": "NODE_ENV=production bun --env-file=.env.production src/main.ts",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint ."
   },
   "dependencies": {
     "rimraf": "^6.1.2"
