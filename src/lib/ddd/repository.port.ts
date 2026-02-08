@@ -23,9 +23,9 @@ export interface PaginatedQueryParams {
 }
 
 export interface RepositoryPort<Entity> {
-  insert: (entity: Entity) => Promise<Result<void, Error>>;
-  update: (entity: Entity) => Promise<Result<boolean, Error>>;
-  delete: (entity: Entity) => Promise<Result<boolean, Error>>;
+  insert: (entity: Entity) => Promise<Result<Entity, Error>>;
+  update: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
+  delete: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
   find: (
     id: AggregateID,
   ) => Promise<Result<Option<Entity>, InvariantException | Error>>;
