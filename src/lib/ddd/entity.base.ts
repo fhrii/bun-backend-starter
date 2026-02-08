@@ -12,12 +12,14 @@ type UnpackedProps<T> =
       ? ValueObjectProps<P> extends { value: infer V }
         ? V
         : UnpackedProps<ValueObjectProps<P>>
-      : T extends object
-        ? { [K in keyof T]: UnpackedProps<T[K]> }
-        : T;
+      : T extends Date
+        ? T
+        : T extends object
+          ? { [K in keyof T]: UnpackedProps<T[K]> }
+          : T;
 
 export interface BaseEntityProps {
-  id: BaseEntityProps;
+  id: AggregateID;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -64,7 +66,7 @@ export abstract class Entity<EntityProps> {
     return copy;
   }
 
-  unpack(): UnpackedProps<EntityProps> {
+  unpack() {
     const copy = _.cloneDeepWith(this._props, (value: unknown) => {
       if (Entity.isEntity(value)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -76,10 +78,15 @@ export abstract class Entity<EntityProps> {
         return value.unpack();
       }
 
-      return undefined;
+      return value;
     });
 
-    return copy as UnpackedProps<EntityProps>;
+    return {
+      id: this._id,
+      ...copy,
+      createdAt: this._createdAt,
+      updatedAt: this._updatedAt,
+    } as BaseEntityProps & UnpackedProps<EntityProps>;
   }
 
   equals(entity: Entity<EntityProps>) {
