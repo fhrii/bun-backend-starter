@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import { z } from 'zod';
+import type { InvariantException } from '../exceptions';
 import { ValueObject, type ValueObjectProps } from './value-object.base';
 
 export type AggregateID = string;
@@ -33,14 +35,16 @@ export abstract class Entity<EntityProps> {
   private _createdAt: Date;
   private _updatedAt: Date;
 
-  constructor({
-    id,
-    props,
-    createdAt,
-    updatedAt,
-  }: CreateEntityProps<EntityProps>) {
+  constructor(
+    { id, props, createdAt, updatedAt }: CreateEntityProps<EntityProps>,
+    schema: z.ZodType<EntityProps>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ErrorClass: new (...args: any[]) => InvariantException,
+  ) {
+    const sanitizedPayload = this.validate(props, schema, ErrorClass);
+
     this._id = id;
-    this._props = props;
+    this._props = sanitizedPayload;
     this._createdAt = createdAt ?? new Date();
     this._updatedAt = updatedAt ?? new Date();
   }
@@ -89,5 +93,19 @@ export abstract class Entity<EntityProps> {
     return param instanceof Entity;
   }
 
-  protected abstract validate(): void;
+  protected validate(
+    props: EntityProps,
+    schema: z.ZodType<EntityProps>,
+    ErrorClass: new (...args: unknown[]) => unknown,
+  ) {
+    try {
+      return schema.parse(props);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        throw new ErrorClass(error);
+      }
+
+      throw new Error('Unexpected error');
+    }
+  }
 }
