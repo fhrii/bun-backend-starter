@@ -73,7 +73,7 @@ export class EventEmitter {
     }
 
     this.logger.warn(
-      'EventEmitter: Event was not emit since the event not trigger through http',
+      '[EventEmitter] Event was not published since the event not triggered through http',
     );
   }
 
@@ -87,7 +87,7 @@ export class EventEmitter {
     }
 
     this.logger.warn(
-      'EventEmitter: Event was not emit since the event not trigger through http',
+      '[EventEmitter] Event was not published since the event not triggered through http',
     );
   }
 }
