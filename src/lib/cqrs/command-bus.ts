@@ -1,14 +1,15 @@
 import { container, singleton } from 'tsyringe';
 import { Logger } from '@/lib/logger';
+import type { Command } from './command';
 import { CommandHandlerNotFoundException } from './exceptions/command-handler-not-found.exception';
 import type {
-  Command,
   CommandHandlerType,
   ICommandBus,
   ICommandHandler,
 } from './interfaces';
 
-type CommandClass = new (...args: unknown[]) => Command;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type CommandClass = new (...args: any[]) => Command;
 
 @singleton()
 export class CommandBus implements ICommandBus {

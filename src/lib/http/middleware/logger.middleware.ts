@@ -25,6 +25,7 @@ export const loggerMiddleware = appFactory.createMiddleware(async (c, next) => {
     status: c.res.status,
     duration: `${duration}ms`,
     ip: c.req.header('x-forwarded-for') || c.req.raw.headers.get('host'),
+    requestId: c.get('REQUEST_ID'),
     userAgent: c.req.header('user-agent'),
     query: c.req.query(),
   };

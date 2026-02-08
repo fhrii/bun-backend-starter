@@ -1,4 +1,4 @@
-import type { Query } from './query';
+import type { Query } from '../query';
 import type { IQueryHandler } from './query-handler.interface';
 
 export type QueryHandlerType<

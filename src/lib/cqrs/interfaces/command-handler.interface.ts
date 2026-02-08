@@ -1,4 +1,4 @@
-import type { Command } from './command';
+import type { Command } from '../command';
 
 export interface ICommandHandler<
   TCommand extends Command<TResult>,

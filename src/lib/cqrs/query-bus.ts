@@ -1,14 +1,11 @@
 import { container, singleton } from 'tsyringe';
 import { Logger } from '@/lib/logger';
 import { QueryHandlerNotFoundException } from './exceptions/query-handler-not-found.exception';
-import type {
-  IQueryBus,
-  IQueryHandler,
-  Query,
-  QueryHandlerType,
-} from './interfaces';
+import type { IQueryBus, IQueryHandler, QueryHandlerType } from './interfaces';
+import type { Query } from './query';
 
-type QueryClass = new (...args: unknown[]) => Query;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type QueryClass = new (...args: any[]) => Query;
 
 @singleton()
 export class QueryBus implements IQueryBus {

@@ -1,4 +1,4 @@
-import type { Command } from './command';
+import type { Command } from '../command';
 import type { ICommandHandler } from './command-handler.interface';
 
 export type CommandHandlerType<
