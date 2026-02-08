@@ -33,7 +33,7 @@ export class CommandBus implements ICommandBus {
       throw new CommandHandlerNotFoundException(commandName);
     }
 
-    this.logger.debug(`Executing command: ${commandId}`);
+    this.logger.debug(`[CommandBus] Executing command: ${commandId}`);
 
     return handler.execute(command) as Promise<TResult>;
   }
@@ -55,7 +55,7 @@ export class CommandBus implements ICommandBus {
     this.handlers.set(commandId, handlerInstance);
 
     this.logger.debug(
-      `Registered command handler: ${handlerClass.name} for ${commandId}`,
+      `[CommandBus] Registered command handler: ${handlerClass.name} for ${commandId}`,
     );
   }
 

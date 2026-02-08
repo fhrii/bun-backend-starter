@@ -1,5 +1,5 @@
 import type { Option, Result } from 'oxide.ts';
-import type { DomainErrorException } from '../exceptions';
+import type { InvariantException } from '../exceptions';
 import type { AggregateID } from './entity.base';
 
 export class Paginated<T> {
@@ -28,9 +28,9 @@ export interface RepositoryPort<Entity> {
   delete: (entity: Entity) => Promise<Result<boolean, Error>>;
   find: (
     id: AggregateID,
-  ) => Promise<Result<Option<Entity>, DomainErrorException | Error>>;
-  findAll: () => Promise<Result<Entity[], DomainErrorException | Error>>;
+  ) => Promise<Result<Option<Entity>, InvariantException | Error>>;
+  findAll: () => Promise<Result<Entity[], InvariantException | Error>>;
   findAllPaginated: (
     query: PaginatedQueryParams,
-  ) => Promise<Result<Paginated<Entity>, DomainErrorException | Error>>;
+  ) => Promise<Result<Paginated<Entity>, InvariantException | Error>>;
 }

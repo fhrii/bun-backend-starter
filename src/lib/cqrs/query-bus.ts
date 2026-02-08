@@ -26,7 +26,7 @@ export class QueryBus implements IQueryBus {
       throw new QueryHandlerNotFoundException(queryName);
     }
 
-    this.logger.debug(`Executing query: ${queryId}`);
+    this.logger.debug(`[QueryBus] Executing query: ${queryId}`);
 
     return handler.execute(query) as Promise<TResult>;
   }
@@ -39,7 +39,7 @@ export class QueryBus implements IQueryBus {
 
     if (this.handlers.has(queryId)) {
       this.logger.warn(
-        `Query handler for "${queryId}" is already registered. Overriding.`,
+        `[QueryBus] Query handler for "${queryId}" is already registered. Overriding.`,
       );
     }
 
@@ -49,7 +49,7 @@ export class QueryBus implements IQueryBus {
     this.handlers.set(queryId, handlerInstance);
 
     this.logger.debug(
-      `Registered query handler: ${handlerClass.name} for ${queryId}`,
+      `[QueryBus] Registered query handler: ${handlerClass.name} for ${queryId}`,
     );
   }
 
