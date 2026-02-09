@@ -1,6 +1,6 @@
 import type { Option, Result } from 'oxide.ts';
 import type { InvariantException } from '../exceptions';
-import type { AggregateID } from './entity.base';
+import type { AggregateID, Entity } from './entity.base';
 
 export class Paginated<T> {
   constructor(
@@ -11,29 +11,32 @@ export class Paginated<T> {
   ) {}
 }
 
-export interface OrderBy {
-  field: string;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface OrderBy<TEntity extends Entity<any>> {
+  field: keyof TEntity['props'];
   param: 'asc' | 'desc';
 }
 
-export interface PaginatedQueryParams {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface PaginatedQueryParams<TEntity extends Entity<any>> {
   limit: number;
   page: number;
-  orderBy: OrderBy;
+  orderBy: OrderBy<TEntity>[];
 }
 
 export interface RepositoryPort<
-  Entity,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TEntity extends Entity<any>,
   TInvariantException extends InvariantException,
 > {
-  insert: (entity: Entity) => Promise<Result<Entity, Error>>;
-  update: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
-  delete: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
+  insert: (entity: TEntity) => Promise<Result<TEntity, Error>>;
+  update: (entity: TEntity) => Promise<Result<Option<TEntity>, Error>>;
+  delete: (entity: TEntity) => Promise<Result<Option<TEntity>, Error>>;
   find: (
     id: AggregateID,
-  ) => Promise<Result<Option<Entity>, TInvariantException | Error>>;
-  findAll: () => Promise<Result<Entity[], TInvariantException | Error>>;
+  ) => Promise<Result<Option<TEntity>, TInvariantException | Error>>;
+  findAll: () => Promise<Result<TEntity[], TInvariantException | Error>>;
   findAllPaginated: (
-    query: PaginatedQueryParams,
-  ) => Promise<Result<Paginated<Entity>, TInvariantException | Error>>;
+    query: PaginatedQueryParams<TEntity>,
+  ) => Promise<Result<Paginated<TEntity>, TInvariantException | Error>>;
 }

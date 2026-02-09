@@ -57,6 +57,14 @@ export abstract class Entity<EntityProps> {
 
   get props() {
     const copy = {
+      ...this._props,
+    } as const;
+
+    return copy;
+  }
+
+  getProps() {
+    const copy = {
       id: this._id,
       ...this._props,
       createdAt: this._createdAt,
@@ -92,7 +100,7 @@ export abstract class Entity<EntityProps> {
   equals(entity: Entity<EntityProps>) {
     return !(
       entity.constructor.name !== this.constructor.name &&
-      entity.props.id !== this.props.id
+      entity.getProps().id !== this._id
     );
   }
 
