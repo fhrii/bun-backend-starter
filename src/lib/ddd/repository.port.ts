@@ -22,15 +22,18 @@ export interface PaginatedQueryParams {
   orderBy: OrderBy;
 }
 
-export interface RepositoryPort<Entity> {
+export interface RepositoryPort<
+  Entity,
+  TInvariantException extends InvariantException,
+> {
   insert: (entity: Entity) => Promise<Result<Entity, Error>>;
   update: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
   delete: (entity: Entity) => Promise<Result<Option<Entity>, Error>>;
   find: (
     id: AggregateID,
-  ) => Promise<Result<Option<Entity>, InvariantException | Error>>;
-  findAll: () => Promise<Result<Entity[], InvariantException | Error>>;
+  ) => Promise<Result<Option<Entity>, TInvariantException | Error>>;
+  findAll: () => Promise<Result<Entity[], TInvariantException | Error>>;
   findAllPaginated: (
     query: PaginatedQueryParams,
-  ) => Promise<Result<Paginated<Entity>, InvariantException | Error>>;
+  ) => Promise<Result<Paginated<Entity>, TInvariantException | Error>>;
 }
