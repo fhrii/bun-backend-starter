@@ -2,7 +2,7 @@ import { type Logger as PinoLogger, pino } from 'pino';
 import { inject, injectable } from 'tsyringe';
 import { Config } from '@/lib/config';
 
-type LogObj = Record<string, unknown>;
+type LogObj = Record<string, any>;
 
 @injectable()
 export class Logger {

@@ -40,7 +40,6 @@ export abstract class Entity<EntityProps> {
   constructor(
     { id, props, createdAt, updatedAt }: CreateEntityProps<EntityProps>,
     schema: z.ZodType<EntityProps>,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ErrorClass: new (...args: any[]) => InvariantException,
   ) {
     const sanitizedPayload = this.validate(props, schema, ErrorClass);
@@ -75,7 +74,7 @@ export abstract class Entity<EntityProps> {
   }
 
   unpack() {
-    const copy = _.cloneDeepWith(this._props, (value: unknown) => {
+    const copy = _.cloneDeepWith(this._props, (value: any) => {
       if (Entity.isEntity(value)) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return value.unpack();
@@ -86,7 +85,7 @@ export abstract class Entity<EntityProps> {
         return value.unpack();
       }
 
-      return value;
+      return value as BaseEntityProps & UnpackedProps<EntityProps>;
     });
 
     return {
@@ -104,14 +103,14 @@ export abstract class Entity<EntityProps> {
     );
   }
 
-  static isEntity(param: unknown) {
+  static isEntity(param: any) {
     return param instanceof Entity;
   }
 
   protected validate(
     props: EntityProps,
     schema: z.ZodType<EntityProps>,
-    ErrorClass: new (...args: unknown[]) => unknown,
+    ErrorClass: new (...args: any[]) => any,
   ) {
     try {
       return schema.parse(props);

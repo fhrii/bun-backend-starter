@@ -11,13 +11,11 @@ export class Paginated<T> {
   ) {}
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface OrderBy<TEntity extends Entity<any>> {
   field: keyof TEntity['props'];
   param: 'asc' | 'desc';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface PaginatedQueryParams<TEntity extends Entity<any>> {
   limit: number;
   page: number;
@@ -25,7 +23,6 @@ export interface PaginatedQueryParams<TEntity extends Entity<any>> {
 }
 
 export interface RepositoryPort<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TEntity extends Entity<any>,
   TInvariantException extends InvariantException,
 > {

@@ -25,7 +25,7 @@ export abstract class ValueObject<TProps> {
     return copy;
   }
 
-  static isValueObject(param: unknown) {
+  static isValueObject(param: any) {
     return param instanceof ValueObject;
   }
 

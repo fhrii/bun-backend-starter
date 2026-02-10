@@ -7,7 +7,7 @@ export const responseInterceptorMiddleware = appFactory.createMiddleware(
     if (c.res.headers.get('Content-Type')?.includes('application/json')) {
       const originalResHeaders = c.res.headers;
       const responseBody = await c.res.json();
-      let responseData: Record<string, unknown> = {
+      let responseData: Record<string, any> = {
         status: c.res.status,
         data: responseBody,
       };

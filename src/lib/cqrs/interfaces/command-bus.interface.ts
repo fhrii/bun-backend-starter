@@ -3,11 +3,11 @@ import type { ICommandHandler } from './command-handler.interface';
 
 export type CommandHandlerType<
   T extends Command<TResult>,
-  TResult = unknown,
-> = new (...args: unknown[]) => ICommandHandler<T, TResult>;
+  TResult = any,
+> = new (...args: any[]) => ICommandHandler<T, TResult>;
 
 type CommandClass<CommandBase extends Command = Command> = new (
-  ...args: unknown[]
+  ...args: any[]
 ) => CommandBase;
 
 export interface ICommandBus<CommandBase extends Command = Command> {

@@ -30,11 +30,8 @@ type EventWithHandler<T extends DomainEvent> = [
 
 interface ModuleProps {
   router?: Router;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   commands?: CommandWithHandler<any>[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   queries?: QueryWithHandler<any>[];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   events?: EventWithHandler<any>[];
 }
 

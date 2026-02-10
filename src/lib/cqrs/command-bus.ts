@@ -8,15 +8,11 @@ import type {
   ICommandHandler,
 } from './interfaces';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CommandClass = new (...args: any[]) => Command;
 
 @singleton()
 export class CommandBus implements ICommandBus {
-  private readonly handlers = new Map<
-    string,
-    ICommandHandler<Command, unknown>
-  >();
+  private readonly handlers = new Map<string, ICommandHandler<Command, any>>();
   private readonly logger: Logger;
 
   constructor() {

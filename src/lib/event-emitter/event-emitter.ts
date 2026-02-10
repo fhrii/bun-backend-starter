@@ -6,17 +6,14 @@ import { Logger } from '@/lib/logger';
 import { RequestContext } from '../request-context';
 import type { IEventHandler } from './interfaces/event-handler.interface';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type EventClass = new (...args: any[]) => DomainEvent;
 export type EventHandlerType<T extends DomainEvent> = new (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any[]
 ) => IEventHandler<T>;
 
 @singleton()
 export class EventEmitter {
   private emitter = createEmitter();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private readonly handlers = new Map<string, IEventHandler<any>[]>();
   private readonly logger: Logger;
 
@@ -49,7 +46,7 @@ export class EventEmitter {
         };
       });
 
-      return [eventName, newHandlers] as [string, EventHandler<unknown>[]];
+      return [eventName, newHandlers] as [string, EventHandler<any>[]];
     });
 
     handlers.forEach((handler) => {

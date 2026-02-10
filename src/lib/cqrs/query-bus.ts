@@ -4,7 +4,6 @@ import { QueryHandlerNotFoundException } from './exceptions/query-handler-not-fo
 import type { IQueryBus, IQueryHandler, QueryHandlerType } from './interfaces';
 import type { Query } from './query';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type QueryClass = new (...args: any[]) => Query;
 
 @singleton()
@@ -16,7 +15,7 @@ export class QueryBus implements IQueryBus {
     this.logger = container.resolve(Logger);
   }
 
-  async execute<TResult = unknown>(query: Query): Promise<TResult> {
+  async execute<TResult = any>(query: Query): Promise<TResult> {
     const queryId = this.getQueryId(query);
     const handler = this.handlers.get(queryId);
 

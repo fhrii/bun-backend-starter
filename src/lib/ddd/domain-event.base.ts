@@ -17,7 +17,7 @@ export class DomainEvent {
   public readonly id: string;
   public readonly metadata: DomainEventMetaData;
 
-  constructor(event?: DomainEventProps<unknown>) {
+  constructor(event?: DomainEventProps<any>) {
     this.id = createId();
     this.metadata = {
       corellationId:

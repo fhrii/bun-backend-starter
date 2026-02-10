@@ -26,6 +26,7 @@ export default tseslint.config(
   {
     rules: {
       '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-misused-spread': 'off',
       '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',

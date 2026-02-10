@@ -13,12 +13,12 @@ export interface CommandMetaData {
 export type CommandProps<T> = Omit<T, 'id' | 'metadata'> &
   Partial<Omit<Command, 'RESULT_COMMAND_SYMBOL'>>;
 
-export class Command<TResult = unknown> {
+export class Command<TResult = any> {
   public readonly id: string;
   public readonly metadata: CommandMetaData;
   public readonly 'RESULT_COMMAND_SYMBOL': TResult;
 
-  constructor(command?: CommandProps<unknown>) {
+  constructor(command?: CommandProps<any>) {
     this.id = createId();
     this.metadata = {
       corellationId:

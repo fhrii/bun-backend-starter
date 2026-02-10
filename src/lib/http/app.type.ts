@@ -1,5 +1,5 @@
 export interface AppBindings {
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 export interface AppVariables {
