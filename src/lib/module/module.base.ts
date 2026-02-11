@@ -17,6 +17,7 @@ import {
   type EventHandlerType,
 } from '../event-emitter';
 import type { AppEnvirontmentVariables, Router } from '../http';
+import { Logger } from '../logger';
 
 type CommandWithHandler<T extends Command> = [
   CommandClass,
@@ -40,6 +41,7 @@ export class Module {
   private readonly commandBus = container.resolve(CommandBus);
   private readonly queryBus = container.resolve(QueryBus);
   private readonly eventEmitter = container.resolve(EventEmitter);
+  private readonly logger = container.resolve(Logger);
 
   constructor({ router, commands, queries, events }: ModuleProps) {
     this.router = router;
@@ -53,6 +55,8 @@ export class Module {
     events?.forEach(([event, eventHandler]) => {
       this.eventEmitter.register(event, eventHandler);
     });
+
+    this.logger.debug(`[Module] Initialize module -> ${this.constructor.name}`);
   }
 
   registerRoute(app: Hono<AppEnvirontmentVariables>) {
