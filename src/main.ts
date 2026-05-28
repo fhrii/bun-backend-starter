@@ -24,14 +24,7 @@ app.use('*', responseInterceptorMiddleware);
 
 app.get('/', (c) => {
   return c.json({
-    name: 'TOS Servant',
-    uptime: `${Math.floor((Date.now() - now) / 1000).toString()} seconds`,
-  });
-});
-
-app.get('/flogs', (c) => {
-  return c.json({
-    name: 'TOS Servant',
+    name: 'Backend Starter App',
     uptime: `${Math.floor((Date.now() - now) / 1000).toString()} seconds`,
   });
 });
