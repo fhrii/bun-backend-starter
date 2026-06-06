@@ -7,6 +7,7 @@ export class Paginated<T> {
     public readonly count: number,
     public readonly limit: number,
     public readonly page: number,
+    public readonly total: number,
     public readonly data: readonly T[],
   ) {}
 }
@@ -16,7 +17,13 @@ export interface OrderBy<TEntity extends Entity<any>> {
   param: 'asc' | 'desc';
 }
 
+export interface QueryParams<TEntity extends Entity<any>> {
+  search: Partial<TEntity['props']>;
+  orderBy: OrderBy<TEntity>[];
+}
+
 export interface PaginatedQueryParams<TEntity extends Entity<any>> {
+  search: Partial<TEntity['props']>;
   limit: number;
   page: number;
   orderBy: OrderBy<TEntity>[];

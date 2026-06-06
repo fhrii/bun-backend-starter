@@ -15,7 +15,7 @@ export class QueryBus implements IQueryBus {
     this.logger = container.resolve(Logger);
   }
 
-  async execute<TResult = any>(query: Query): Promise<TResult> {
+  async execute<TResult = any>(query: Query<TResult>): Promise<TResult> {
     const queryId = this.getQueryId(query);
     const handler = this.handlers.get(queryId);
 

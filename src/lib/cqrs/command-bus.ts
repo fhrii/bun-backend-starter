@@ -19,7 +19,7 @@ export class CommandBus implements ICommandBus {
     this.logger = container.resolve(Logger);
   }
 
-  async execute<TResult = void>(command: Command): Promise<TResult> {
+  async execute<TResult = void>(command: Command<TResult>): Promise<TResult> {
     const commandId = this.getCommandId(command);
     const handler = this.handlers.get(commandId);
 
