@@ -4,10 +4,10 @@ import type { AggregateID, Entity } from './entity.base';
 
 export class Paginated<T> {
   constructor(
-    public readonly count: number,
+    public readonly total: number,
     public readonly limit: number,
     public readonly page: number,
-    public readonly total: number,
+    public readonly totalPages: number,
     public readonly data: readonly T[],
   ) {}
 }
@@ -17,12 +17,12 @@ export interface OrderBy<TEntity extends Entity<any>> {
   param: 'asc' | 'desc';
 }
 
-export interface QueryParams<TEntity extends Entity<any>> {
+export interface QueryParam<TEntity extends Entity<any>> {
   search: Partial<TEntity['props']>;
   orderBy: OrderBy<TEntity>[];
 }
 
-export interface PaginatedQueryParams<TEntity extends Entity<any>> {
+export interface PaginatedQueryParam<TEntity extends Entity<any>> {
   search: Partial<TEntity['props']>;
   limit: number;
   page: number;
@@ -39,8 +39,10 @@ export interface RepositoryPort<
   find: (
     id: AggregateID,
   ) => Promise<Result<Option<TEntity>, TInvariantException | Error>>;
-  findAll: () => Promise<Result<TEntity[], TInvariantException | Error>>;
+  findAll: (
+    query: QueryParam<TEntity>,
+  ) => Promise<Result<TEntity[], TInvariantException | Error>>;
   findAllPaginated: (
-    query: PaginatedQueryParams<TEntity>,
+    query: PaginatedQueryParam<TEntity>,
   ) => Promise<Result<Paginated<TEntity>, TInvariantException | Error>>;
 }

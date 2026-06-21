@@ -7,7 +7,10 @@ export class Router {
   private readonly router = new Hono();
   private readonly logger = container.resolve(Logger);
 
-  constructor(private readonly basePath: string) {}
+  constructor(
+    private readonly name: string,
+    private readonly basePath = '/',
+  ) {}
 
   get c() {
     return this.router;
@@ -15,6 +18,6 @@ export class Router {
 
   registerToApp(app: Hono<AppEnvirontmentVariables>) {
     app.route(this.basePath, this.router);
-    this.logger.debug(`[Router] Registering routes -> ${this.basePath}`);
+    this.logger.debug(`[Router] Registering routes -> ${this.name}`);
   }
 }
