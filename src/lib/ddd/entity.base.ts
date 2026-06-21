@@ -97,9 +97,17 @@ export abstract class Entity<EntityProps> {
   }
 
   equals(entity: Entity<EntityProps>) {
-    return !(
-      entity.constructor.name !== this.constructor.name &&
-      entity.getProps().id !== this._id
+    if (this === entity) {
+      return true;
+    }
+
+    if (!(entity instanceof Entity)) {
+      return false;
+    }
+
+    return (
+      entity.constructor.name === this.constructor.name &&
+      entity.id === this._id
     );
   }
 
