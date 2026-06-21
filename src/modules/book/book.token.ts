@@ -1,0 +1,1 @@
+export const BOOK_REPOSITORY_TOKEN = Symbol('BOOK_REPOSITORY_TOKEN');

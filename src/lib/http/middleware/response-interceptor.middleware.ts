@@ -16,7 +16,7 @@ export const responseInterceptorMiddleware = appFactory.createMiddleware(
         responseData = { status: c.res.status, ...responseBody };
       }
 
-      c.res = new Response(JSON.stringify(responseData), {
+      c.res = Response.json(responseData, {
         status: c.res.status,
         statusText: c.res.statusText,
         headers: originalResHeaders,

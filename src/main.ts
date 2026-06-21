@@ -10,6 +10,7 @@ import {
   responseInterceptorMiddleware,
 } from '@/lib/http/middleware';
 import { Logger } from '@/lib/logger';
+import { BookModule } from './modules/book';
 
 const app = appFactory.createApp();
 const now = Date.now();
@@ -22,12 +23,16 @@ app.use('*', requestContextMiddleware);
 app.use('*', loggerMiddleware);
 app.use('*', responseInterceptorMiddleware);
 
+const bookModule = new BookModule();
+
 app.get('/', (c) => {
   return c.json({
     name: 'Backend Starter App',
     uptime: `${Math.floor((Date.now() - now) / 1000).toString()} seconds`,
   });
 });
+
+bookModule.registerRoute(app);
 
 eventEmitter.createHandlers();
 
